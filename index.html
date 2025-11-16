@@ -54,6 +54,7 @@
             line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
+            font-size: 1.3rem; /* Увеличен базовый размер текста */
         }
 
         /* Анимации */
@@ -82,7 +83,7 @@
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--glass-border);
-            padding: 1rem;
+            padding: 1.5rem; /* Увеличен padding */
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -92,26 +93,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            max-width: 1400px; /* Увеличен максимальная ширина */
             margin: 0 auto;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem; /* Увеличен gap */
         }
 
         .logo img {
-            width: 40px;
-            height: 40px;
+            width: 60px; /* Увеличен размер */
+            height: 60px; /* Увеличен размер */
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px; /* Увеличен радиус */
         }
 
         .logo h1 {
             font-family: 'MainFont', Arial, sans-serif;
-            font-size: 1.5rem; /* Увеличен размер */
+            font-size: 2.5rem; /* Значительно увеличен размер */
             color: var(--winter-blue);
             font-weight: 400;
         }
@@ -121,8 +122,8 @@
             display: none;
             flex-direction: column;
             justify-content: space-between;
-            width: 24px;
-            height: 18px;
+            width: 30px; /* Увеличен размер */
+            height: 24px; /* Увеличен размер */
             background: transparent;
             border: none;
             cursor: pointer;
@@ -130,48 +131,47 @@
 
         .nav-toggle span {
             display: block;
-            height: 2px;
+            height: 3px; /* Увеличен размер */
             width: 100%;
             background-color: var(--winter-light);
-            transition: all 0.3s ease;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
+            gap: 2rem; /* Увеличен gap */
         }
 
         nav a {
             text-decoration: none;
             color: var(--winter-light);
             font-weight: 400;
-            padding: 0.5rem;
-            border-radius: 5px;
-            font-size: 1rem; /* Увеличен размер */
+            padding: 0.8rem; /* Увеличен padding */
+            border-radius: 8px; /* Увеличен радиус */
+            font-size: 1.4rem; /* Значительно увеличен размер */
             font-family: 'TextFont', Arial, sans-serif;
         }
 
         /* Основной контент */
         main {
-            max-width: 1200px;
+            max-width: 1400px; /* Увеличен максимальная ширина */
             margin: 0 auto;
-            padding: 1rem;
+            padding: 2rem; /* Увеличен padding */
         }
 
         section {
-            margin-bottom: 2rem;
+            margin-bottom: 3rem; /* Увеличен отступ */
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-radius: 16px; /* Увеличен радиус */
+            padding: 2.5rem; /* Увеличен padding */
             border: 1px solid var(--glass-border);
         }
 
         h2 {
             font-family: 'MainFont', Arial, sans-serif;
-            font-size: 2rem; /* Увеличен размер */
-            margin-bottom: 1.5rem;
+            font-size: 3rem; /* Значительно увеличен размер */
+            margin-bottom: 2rem; /* Увеличен отступ */
             color: var(--winter-blue);
             text-align: center;
             font-weight: 400;
@@ -180,25 +180,25 @@
         /* Секция с 3D моделью */
         .model-section {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem; /* Увеличен отступ */
         }
 
         .project-title {
             font-family: 'HJKFont', Arial, sans-serif;
-            font-size: 3rem; /* Увеличен размер */
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 4.5rem; /* Значительно увеличен размер */
+            margin-top: 2rem; /* Увеличен отступ */
+            margin-bottom: 2rem; /* Увеличен отступ */
             color: var(--winter-blue);
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(144, 205, 244, 0.3);
-            line-height: 1.2;
-            padding: 0 0.5rem;
+            letter-spacing: 3px; /* Увеличен межбуквенный интервал */
+            text-shadow: 0 0 15px rgba(144, 205, 244, 0.4); /* Усилена тень */
+            line-height: 1.3; /* Увеличен межстрочный интервал */
+            padding: 0 1rem; /* Увеличен padding */
         }
 
         .model-container {
             width: 100%;
-            height: 300px;
-            border-radius: 8px;
+            height: 400px; /* Увеличен размер */
+            border-radius: 12px; /* Увеличен радиус */
             overflow: hidden;
             background: transparent;
             position: relative;
@@ -210,7 +210,7 @@
             width: 100%;
             height: 0;
             padding-bottom: 56.25%; /* 16:9 соотношение сторон */
-            border-radius: 8px;
+            border-radius: 12px; /* Увеличен радиус */
             overflow: hidden;
         }
 
@@ -225,8 +225,8 @@
 
         .stream-info {
             text-align: center;
-            margin-top: 1rem;
-            font-size: 1rem; /* Увеличен размер */
+            margin-top: 1.5rem; /* Увеличен отступ */
+            font-size: 1.5rem; /* Увеличен размер */
             opacity: 0.8;
             color: var(--winter-light);
         }
@@ -235,20 +235,20 @@
         .about-content {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem; /* Увеличен gap */
         }
 
         .creator-info {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem; /* Увеличен gap */
             align-items: center;
         }
 
         .creator-photo {
             width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
+            max-width: 400px; /* Увеличен максимальная ширина */
+            border-radius: 15px; /* Увеличен радиус */
             overflow: hidden;
         }
 
@@ -264,97 +264,107 @@
 
         .creator-text h3 {
             font-family: 'MainFont', Arial, sans-serif;
-            font-size: 1.8rem; /* Увеличен размер */
-            margin-bottom: 1rem;
+            font-size: 2.5rem; /* Значительно увеличен размер */
+            margin-bottom: 1.5rem; /* Увеличен отступ */
             color: var(--winter-blue);
             font-weight: 400;
         }
 
         .creator-text p {
             color: var(--winter-light);
-            margin-bottom: 1rem;
-            font-size: 1.1rem; /* Увеличен размер */
+            margin-bottom: 1.5rem; /* Увеличен отступ */
+            font-size: 1.4rem; /* Увеличен размер */
+            line-height: 1.7; /* Увеличен межстрочный интервал */
         }
 
         /* Секция "Чем кормим" */
         .feeding-content {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem; /* Увеличен gap */
         }
 
         .current-food {
             background: rgba(144, 205, 244, 0.1);
-            border-radius: 10px;
-            padding: 1.5rem;
-            border-left: 4px solid var(--winter-blue);
+            border-radius: 15px; /* Увеличен радиус */
+            padding: 2rem; /* Увеличен padding */
+            border-left: 6px solid var(--winter-blue); /* Увеличен размер границы */
+        }
+
+        .current-food h3 {
+            font-size: 2.2rem; /* Увеличен размер */
+            margin-bottom: 1.5rem; /* Увеличен отступ */
         }
 
         .future-food {
             background: rgba(99, 179, 237, 0.1);
-            border-radius: 10px;
-            padding: 1.5rem;
-            border-left: 4px solid #63b3ed;
+            border-radius: 15px; /* Увеличен радиус */
+            padding: 2rem; /* Увеличен padding */
+            border-left: 6px solid #63b3ed; /* Увеличен размер границы */
+        }
+
+        .future-food h3 {
+            font-size: 2.2rem; /* Увеличен размер */
+            margin-bottom: 1.5rem; /* Увеличен отступ */
         }
 
         .food-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Увеличен минимальный размер */
+            gap: 1.5rem; /* Увеличен gap */
+            margin-top: 1.5rem; /* Увеличен отступ */
         }
 
         .food-item {
             background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 8px;
+            padding: 1.5rem; /* Увеличен padding */
+            border-radius: 12px; /* Увеличен радиус */
             text-align: center;
         }
 
         .food-item h4 {
             color: var(--winter-blue);
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem; /* Увеличен отступ */
             font-family: 'MainFont', Arial, sans-serif;
-            font-size: 1.3rem; /* Увеличен размер */
+            font-size: 1.8rem; /* Значительно увеличен размер */
         }
 
         .food-item p {
             font-family: 'TextFont', Arial, sans-serif;
-            font-size: 1.1rem; /* Увеличен размер */
+            font-size: 1.3rem; /* Увеличен размер */
         }
 
         /* Секция "Связь" */
         .contact-container {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem; /* Увеличен gap */
             align-items: center;
         }
 
         .contact-btn {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem;
+            gap: 1.5rem; /* Увеличен gap */
+            padding: 1.5rem; /* Увеличен padding */
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
-            border-radius: 8px;
+            border-radius: 12px; /* Увеличен радиус */
             color: var(--text-color);
             text-decoration: none;
             font-weight: 400;
             width: 100%;
-            max-width: 300px;
+            max-width: 400px; /* Увеличен максимальная ширина */
             justify-content: center;
             font-family: 'TextFont', Arial, sans-serif;
-            font-size: 1.1rem; /* Увеличен размер */
-            /* Убраны transition для hover */
+            font-size: 1.5rem; /* Увеличен размер */
         }
 
         .contact-btn img {
-            width: 40px;
-            height: 40px;
-            border-radius: 5px;
+            width: 50px; /* Увеличен размер */
+            height: 50px; /* Увеличен размер */
+            border-radius: 8px; /* Увеличен радиус */
         }
 
         /* Футер */
@@ -362,10 +372,10 @@
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border-top: 1px solid var(--glass-border);
-            padding: 1.5rem;
+            padding: 2rem; /* Увеличен padding */
             text-align: center;
-            margin-top: 2rem;
-            font-size: 1rem; /* Увеличен размер */
+            margin-top: 3rem; /* Увеличен отступ */
+            font-size: 1.3rem; /* Увеличен размер */
             opacity: 0.8;
             color: var(--winter-light);
             font-family: 'TextFont', Arial, sans-serif;
@@ -386,7 +396,7 @@
                 background: var(--glass-bg);
                 backdrop-filter: blur(12px);
                 flex-direction: column;
-                padding: 1rem;
+                padding: 1.5rem; /* Увеличен padding */
                 border-bottom: 1px solid var(--glass-border);
             }
             
@@ -396,10 +406,10 @@
             
             nav a {
                 display: block;
-                padding: 0.75rem;
+                padding: 1rem; /* Увеличен padding */
                 text-align: center;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                font-size: 1.1rem; /* Увеличен размер */
+                font-size: 1.5rem; /* Увеличен размер */
             }
             
             nav a:last-child {
@@ -407,14 +417,14 @@
             }
             
             .project-title {
-                font-size: 2rem; /* Увеличен размер */
-                letter-spacing: 1px;
-                margin-top: 1rem;
-                margin-bottom: 1rem;
+                font-size: 3rem; /* Увеличен размер */
+                letter-spacing: 2px;
+                margin-top: 1.5rem; /* Увеличен отступ */
+                margin-bottom: 1.5rem; /* Увеличен отступ */
             }
             
             .model-container {
-                height: 250px;
+                height: 300px; /* Увеличен размер */
             }
             
             .food-list {
@@ -422,29 +432,41 @@
             }
             
             section {
-                padding: 1rem;
+                padding: 1.5rem; /* Увеличен padding */
             }
             
             h2 {
-                font-size: 1.8rem; /* Увеличен размер */
+                font-size: 2.5rem; /* Увеличен размер */
+            }
+
+            .logo h1 {
+                font-size: 2rem; /* Увеличен размер для мобильных */
             }
         }
 
         @media (max-width: 480px) {
             .project-title {
-                font-size: 1.8rem; /* Увеличен размер */
+                font-size: 2.5rem; /* Увеличен размер */
             }
             
             .model-container {
-                height: 200px;
+                height: 250px; /* Увеличен размер */
             }
             
             .logo h1 {
-                font-size: 1.3rem; /* Увеличен размер */
+                font-size: 1.8rem; /* Увеличен размер */
             }
             
             .creator-text h3 {
-                font-size: 1.6rem; /* Увеличен размер */
+                font-size: 2rem; /* Увеличен размер */
+            }
+
+            h2 {
+                font-size: 2rem; /* Увеличен размер */
+            }
+
+            body {
+                font-size: 1.2rem; /* Увеличен базовый размер текста */
             }
         }
     </style>
