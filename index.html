@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таверна Вороны - кормление птиц с трансляцией</title>
+    <style>
+        /* Основные стили и переменные */
+        :root {
+            --primary-color: #2c5282;
+            --secondary-color: #4a5568;
+            --accent-color: #63b3ed;
+            --text-color: #f7fafc;
+            --background-color: #1a202c;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --winter-blue: #90cdf4;
+            --winter-light: #e2e8f0;
+            --winter-dark: #2d3748;
+        }
+
+        /* Подключение шрифтов в формате TTF */
+        @font-face {
+            font-family: 'Main';
+            src: url('main.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Text';
+            src: url('text.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'HJK';
+            src: url('hjk.ttf') format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Text', sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            background-image: 
+                linear-gradient(135deg, rgba(26, 32, 44, 0.9) 0%, rgba(45, 55, 72, 0.9) 100%),
+                radial-gradient(circle at 10% 20%, rgba(144, 205, 244, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(99, 179, 237, 0.1) 0%, transparent 20%);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes snow {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Снежинки */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: var(--winter-blue);
+            font-size: 1em;
+            animation: snow linear infinite;
+        }
+
+        /* Стили шапки */
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: pulse 3s infinite;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: rotate(10deg);
+        }
+
+        .logo h1 {
+            font-family: 'Main', sans-serif;
+            font-size: 1.5rem;
+            color: var(--winter-blue);
+            font-weight: 400;
+        }
+
+        /* Навигация */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--winter-light);
+            font-weight: 400;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--winter-blue);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        nav a:hover {
+            color: var(--winter-blue);
+        }
+
+        /* Основной контент */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 2.5rem;
+            border: 1px solid var(--glass-border);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-family: 'Main', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--winter-blue);
+            text-align: center;
+            font-weight: 400;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Секция с 3D моделью */
+        .model-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .project-title {
+            font-family: 'HJK', sans-serif;
+            font-size: 2.2rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--winter-blue);
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(144, 205, 244, 0.3);
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .model-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: transparent;
+            position: relative;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        /* Секция трансляции */
+        .stream-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 соотношение сторон */
+            border-radius: 8px;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .stream-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .stream-info {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: var(--winter-light);
+            animation: fadeIn 1s ease 0.8s both;
+        }
+
+        /* Секция "О нас" */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .creator-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .creator-photo {
+            flex: 1;
+            min-width: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .creator-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .creator-photo:hover img {
+            transform: scale(1.05);
+        }
+
+        .creator-text {
+            flex: 2;
+            min-width: 300px;
+            animation: fadeInUp 1s ease 1.2s both;
+        }
+
+        .creator-text h3 {
+            font-family: 'Main', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--winter-blue);
+            font-weight: 400;
+        }
+
+        .creator-text p {
+            color: var(--winter-light);
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .creator-text p:nth-child(2) {
+            animation-delay: 1.4s;
+        }
+
+        .creator-text p:nth-child(3) {
+            animation-delay: 1.6s;
+        }
+
+        .creator-text p:nth-child(4) {
+            animation-delay: 1.8s;
+        }
+
+        /* Секция "Чем кормим" */
+        .feeding-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .current-food {
+            background: rgba(144, 205, 244, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--winter-blue);
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .future-food {
+            background: rgba(99, 179, 237, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid #63b3ed;
+            animation: fadeInUp 1s ease 1.2s both;
+        }
+
+        .food-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+            animation: fadeInUp 1s ease 1.4s both;
+        }
+
+        .food-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .food-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .food-item h4 {
+            color: var(--winter-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Секция "Связь" */
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .contact-btn:nth-child(1) {
+            animation-delay: 1s;
+        }
+
+        .contact-btn:nth-child(2) {
+            animation-delay: 1.2s;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-5px);
+            background: rgba(144, 205, 244, 0.1);
+            border-color: var(--winter-blue);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-btn img {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-btn:hover img {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        /* Футер */
+        footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: var(--winter-light);
+            animation: fadeIn 1s ease 1.4s both;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .creator-info {
+                flex-direction: column;
+            }
+
+            .contact-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+            
+            .project-title {
+                font-size: 1.8rem;
+            }
+            
+            .model-container {
+                height: 300px;
+            }
+            
+            .food-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Снежинки -->
+    <div class="snowflakes" id="snowflakes"></div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="pixvoron.jpg" alt="Пиксельная ворона">
+                <h1>Таверна Вороны</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#project">Главная</a></li>
+                    <li><a href="#stream">Трансляция</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#feeding">Чем кормим</a></li>
+                    <li><a href="#contact">Связь</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="project">
+            <div class="model-section">
+                <div class="model-container" id="model-container">
+                    <!-- 3D модель будет загружена сюда -->
+                </div>
+                <div class="project-title">ПРОЕКТ ТАВЕРНА ВОРОНЫ</div>
+            </div>
+        </section>
+
+        <section id="stream">
+            <h2>Прямая трансляция с кормушки</h2>
+            <div class="stream-container">
+                <div id="youtube-player"></div>
+            </div>
+            <div class="stream-info">
+                Наблюдайте за птицами в реальном времени
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>О нашем проекте</h2>
+            <div class="about-content">
+                <div class="creator-info">
+                    <div class="creator-photo">
+                        <img src="my.jpg" alt="Фото создателя проекта">
+                    </div>
+                    <div class="creator-text">
+                        <h3>Привет! Я создатель этого проекта</h3>
+                        <p>Меня зовут Богдан, мне 13 лет, и я увлекаюсь орнитологией и программированием. Этот проект объединяет мои две главные страсти - наблюдение за птицами и создание технологических решений.</p>
+                        <p>"Таверна Вороны" - это место, где мы кормим птиц и наблюдаем за их поведением через онлайн-трансляцию. Наша цель - изучать птиц в их естественной среде и делиться этими наблюдениями со всеми желающими.</p>
+                        <p>Надеюсь, вам понравится наблюдать за нашими пернатыми гостями так же, как и мне!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="feeding">
+            <h2>Чем кормим наших пернатых гостей</h2>
+            <div class="feeding-content">
+                <div class="current-food">
+                    <h3>Наше текущее меню</h3>
+                    <p>На первое время мы кормим птиц <strong>мелкими крошками несоленого батона</strong>. Это помогает привлечь разных птиц к нашей кормушке и даёт им энергию в холодное время года.</p>
+                </div>
+                
+                <div class="future-food">
+                    <h3>Скоро переходим на полезное питание!</h3>
+                    <p>Мы активно изучаем, чем лучше кормить птиц, и вскоре планируем перейти на более сбалансированные и полезные корма, чтобы наши пернатые гости получали все необходимые питательные вещества.</p>
+                </div>
+                
+                <div class="food-list">
+                    <div class="food-item">
+                        <h4>🌾 Зерновые</h4>
+                        <p>Семечки подсолнечника, просо, овёс</p>
+                    </div>
+                    <div class="food-item">
+                        <h4>🥜 Белковые корма</h4>
+                        <p>Дроблёные орехи, сушёные насекомые</p>
+                    </div>
+                    <div class="food-item">
+                        <h4>🍎 Фрукты и ягоды</h4>
+                        <p>Яблоки, рябина, изюм</p>
+                    </div>
+                    <div class="food-item">
+                        <h4>🌰 Специальные корма</h4>
+                        <p>Сало, кормовые смеси</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Свяжитесь с нами</h2>
+            <div class="contact-container">
+                <a href="https://t.me/your_channel" class="contact-btn" target="_blank">
+                    <img src="cowboyvorona.jpg" alt="Ворона-ковбой">
+                    <span>Наш Telegram канал</span>
+                </a>
+                <a href="mailto:your-email@example.com" class="contact-btn">
+                    <img src="funnyme.jpg" alt="Смешное фото создателя">
+                    <span>Написать нам на email</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 Таверна Вороны. Все права защищены.</p>
+    </footer>
+
+    <!-- Подключение Three.js для 3D модели -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Подключение GLTFLoader для загрузки 3D моделей -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <script>
+        // Создание снежинок
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = '❄';
+                
+                // Случайные параметры для снежинок
+                const size = Math.random() * 1.5 + 0.5;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 10 + 5;
+                const animationDelay = Math.random() * 5;
+                
+                snowflake.style.left = `${left}vw`;
+                snowflake.style.fontSize = `${size}em`;
+                snowflake.style.animationDuration = `${animationDuration}s`;
+                snowflake.style.animationDelay = `${animationDelay}s`;
+                
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        // Анимация появления элементов при скролле
+        function observeSections() {
+            const sections = document.querySelectorAll('section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Плавная прокрутка к якорям
+        function initSmoothScroll() {
+            const navLinks = document.querySelectorAll('nav a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // YouTube Player API
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '100%',
+                width: '100%',
+                videoId: 'dQw4w9WgXcQ', // Замените на ID вашего видео
+                playerVars: {
+                    'playsinline': 1,
+                    'autoplay': 0,
+                    'controls': 1,
+                    'modestbranding': 1,
+                    'rel': 0
+                }
+            });
+        }
+
+        // Загрузка YouTube IFrame API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Three.js для 3D модели
+        let scene, camera, renderer, model;
+        
+        function init3D() {
+            // Создание сцены
+            scene = new THREE.Scene();
+            scene.background = null;
+            
+            // Создание камеры
+            camera = new THREE.PerspectiveCamera(75, 
+                document.getElementById('model-container').clientWidth / 
+                document.getElementById('model-container').clientHeight, 
+                0.1, 1000);
+            camera.position.z = 5;
+            
+            // Создание рендерера
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(
+                document.getElementById('model-container').clientWidth,
+                document.getElementById('model-container').clientHeight
+            );
+            renderer.setClearColor(0x000000, 0); // Прозрачный фон
+            document.getElementById('model-container').appendChild(renderer.domElement);
+            
+            // Добавление освещения
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(0, 1, 1);
+            scene.add(directionalLight);
+            
+            // Загрузка модели
+            const loader = new THREE.GLTFLoader();
+            loader.load('vorona.glb', function(gltf) {
+                model = gltf.scene;
+                scene.add(model);
+                
+                // Центрирование модели
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                model.position.sub(center);
+                
+                // Масштабирование модели
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const scale = 3 / maxDim;
+                model.scale.multiplyScalar(scale);
+                
+                // Запуск анимации
+                animate();
+            }, undefined, function(error) {
+                console.error('Ошибка загрузки модели:', error);
+                // Если модель не загружается, создаем простую геометрию для демонстрации
+                const geometry = new THREE.SphereGeometry(1, 32, 32);
+                const material = new THREE.MeshPhongMaterial({ 
+                    color: 0x90cdf4,
+                    transparent: true,
+                    opacity: 0.7
+                });
+                model = new THREE.Mesh(geometry, material);
+                scene.add(model);
+                animate();
+            });
+            
+            // Блокировка взаимодействия с моделью
+            renderer.domElement.style.pointerEvents = 'none';
+            
+            // Обработка изменения размера окна
+            window.addEventListener('resize', onWindowResize, false);
+        }
+        
+        function onWindowResize() {
+            camera.aspect = document.getElementById('model-container').clientWidth / 
+                           document.getElementById('model-container').clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(
+                document.getElementById('model-container').clientWidth,
+                document.getElementById('model-container').clientHeight
+            );
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Автоматическое вращение модели
+            if (model) {
+                model.rotation.y += 0.01;
+            }
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Инициализация после загрузки страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            createSnowflakes();
+            observeSections();
+            initSmoothScroll();
+            init3D();
+        });
+    </script>
+</body>
+</html>
