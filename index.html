@@ -22,18 +22,21 @@
 
         /* Подключение шрифтов в формате TTF */
         @font-face {
-            font-family: 'Main';
+            font-family: 'MainFont';
             src: url('main.ttf') format('truetype');
+            font-display: swap;
         }
 
         @font-face {
-            font-family: 'Text';
+            font-family: 'TextFont';
             src: url('text.ttf') format('truetype');
+            font-display: swap;
         }
 
         @font-face {
-            font-family: 'HJK';
+            font-family: 'HJKFont';
             src: url('hjk.ttf') format('truetype');
+            font-display: swap;
         }
 
         * {
@@ -43,7 +46,7 @@
         }
 
         body {
-            font-family: 'Text', sans-serif;
+            font-family: 'TextFont', sans-serif;
             color: var(--text-color);
             background-color: var(--background-color);
             background-image: 
@@ -187,7 +190,7 @@
         }
 
         .logo h1 {
-            font-family: 'Main', sans-serif;
+            font-family: 'MainFont', sans-serif;
             font-size: 1.5rem;
             color: var(--winter-blue);
             font-weight: 400;
@@ -209,6 +212,7 @@
             transition: all 0.3s;
             font-size: 1rem;
             position: relative;
+            font-family: 'TextFont', sans-serif;
         }
 
         nav a::after {
@@ -256,7 +260,7 @@
         }
 
         h2 {
-            font-family: 'Main', sans-serif;
+            font-family: 'MainFont', sans-serif;
             font-size: 2rem;
             margin-bottom: 1.5rem;
             color: var(--winter-blue);
@@ -272,7 +276,7 @@
         }
 
         .project-title {
-            font-family: 'HJK', sans-serif;
+            font-family: 'HJKFont', sans-serif;
             font-size: 2.2rem;
             margin-top: 2rem;
             margin-bottom: 1.5rem;
@@ -284,7 +288,7 @@
 
         .model-container {
             width: 100%;
-            height: 400px;
+            height: 500px; /* Увеличил высоту контейнера */
             border-radius: 8px;
             overflow: hidden;
             background: transparent;
@@ -361,7 +365,7 @@
         }
 
         .creator-text h3 {
-            font-family: 'Main', sans-serif;
+            font-family: 'MainFont', sans-serif;
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--winter-blue);
@@ -435,6 +439,11 @@
         .food-item h4 {
             color: var(--winter-blue);
             margin-bottom: 0.5rem;
+            font-family: 'MainFont', sans-serif;
+        }
+
+        .food-item p {
+            font-family: 'TextFont', sans-serif;
         }
 
         /* Секция "Связь" */
@@ -461,6 +470,7 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 1s ease forwards;
+            font-family: 'TextFont', sans-serif;
         }
 
         .contact-btn:nth-child(1) {
@@ -501,6 +511,7 @@
             opacity: 0.8;
             color: var(--winter-light);
             animation: fadeIn 1s ease 1.4s both;
+            font-family: 'TextFont', sans-serif;
         }
 
         /* Адаптивность */
@@ -542,7 +553,7 @@
             }
             
             .model-container {
-                height: 300px;
+                height: 350px;
             }
             
             .food-list {
@@ -770,7 +781,7 @@
                 document.getElementById('model-container').clientWidth / 
                 document.getElementById('model-container').clientHeight, 
                 0.1, 1000);
-            camera.position.z = 5;
+            camera.position.z = 4; // Приблизили камеру для большего размера модели
             
             // Создание рендерера
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -779,15 +790,26 @@
                 document.getElementById('model-container').clientHeight
             );
             renderer.setClearColor(0x000000, 0); // Прозрачный фон
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             document.getElementById('model-container').appendChild(renderer.domElement);
             
-            // Добавление освещения
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            // Улучшенное освещение
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Увеличили интенсивность
             scene.add(ambientLight);
             
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(0, 1, 1);
-            scene.add(directionalLight);
+            const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.0); // Увеличили интенсивность
+            directionalLight1.position.set(2, 3, 4);
+            directionalLight1.castShadow = true;
+            scene.add(directionalLight1);
+            
+            const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5); // Добавили второй источник
+            directionalLight2.position.set(-2, -1, 2);
+            scene.add(directionalLight2);
+            
+            const pointLight = new THREE.PointLight(0x90cdf4, 0.7, 10); // Добавили точечный свет
+            pointLight.position.set(0, 2, 3);
+            scene.add(pointLight);
             
             // Загрузка модели
             const loader = new THREE.GLTFLoader();
@@ -800,11 +822,19 @@
                 const center = box.getCenter(new THREE.Vector3());
                 model.position.sub(center);
                 
-                // Масштабирование модели
+                // Увеличили масштабирование модели
                 const size = box.getSize(new THREE.Vector3());
                 const maxDim = Math.max(size.x, size.y, size.z);
-                const scale = 3 / maxDim;
+                const scale = 4 / maxDim; // Увеличили множитель масштаба
                 model.scale.multiplyScalar(scale);
+                
+                // Добавим материал с большей отражающей способностью
+                model.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.emissive = new THREE.Color(0x222222);
+                        child.material.emissiveIntensity = 0.2;
+                    }
+                });
                 
                 // Запуск анимации
                 animate();
