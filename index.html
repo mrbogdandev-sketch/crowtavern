@@ -46,13 +46,11 @@
         }
 
         body {
-            font-family: 'TextFont', sans-serif;
+            font-family: 'TextFont', Arial, sans-serif;
             color: var(--text-color);
             background-color: var(--background-color);
             background-image: 
-                linear-gradient(135deg, rgba(26, 32, 44, 0.9) 0%, rgba(45, 55, 72, 0.9) 100%),
-                radial-gradient(circle at 10% 20%, rgba(144, 205, 244, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(99, 179, 237, 0.1) 0%, transparent 20%);
+                linear-gradient(135deg, rgba(26, 32, 44, 0.9) 0%, rgba(45, 55, 72, 0.9) 100%);
             line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
@@ -79,87 +77,15 @@
             }
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes snow {
-            0% {
-                transform: translateY(-10px) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Снежинки */
-        .snowflakes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        .snowflake {
-            position: absolute;
-            top: -10px;
-            color: var(--winter-blue);
-            font-size: 1em;
-            animation: snow linear infinite;
-        }
-
         /* Стили шапки */
         header {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--glass-border);
-            padding: 1rem 2rem;
+            padding: 1rem;
             position: sticky;
             top: 0;
             z-index: 1000;
-            animation: fadeInDown 1s ease;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .header-container {
@@ -174,128 +100,108 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            animation: pulse 3s infinite;
         }
 
         .logo img {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             object-fit: cover;
             border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover img {
-            transform: rotate(10deg);
         }
 
         .logo h1 {
-            font-family: 'MainFont', sans-serif;
-            font-size: 1.5rem;
+            font-family: 'MainFont', Arial, sans-serif;
+            font-size: 1.2rem;
             color: var(--winter-blue);
             font-weight: 400;
         }
 
-        /* Навигация */
+        /* Навигация для мобильных */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: var(--winter-light);
+            transition: all 0.3s ease;
+        }
+
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         nav a {
             text-decoration: none;
             color: var(--winter-light);
             font-weight: 400;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem;
             border-radius: 5px;
-            transition: all 0.3s;
-            font-size: 1rem;
-            position: relative;
-            font-family: 'TextFont', sans-serif;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background-color: var(--winter-blue);
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-            left: 0;
-        }
-
-        nav a:hover {
-            color: var(--winter-blue);
+            font-size: 0.9rem;
+            font-family: 'TextFont', Arial, sans-serif;
         }
 
         /* Основной контент */
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1rem;
         }
 
         section {
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border-radius: 12px;
-            padding: 2.5rem;
+            padding: 1.5rem;
             border: 1px solid var(--glass-border);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         h2 {
-            font-family: 'MainFont', sans-serif;
-            font-size: 2rem;
+            font-family: 'MainFont', Arial, sans-serif;
+            font-size: 1.5rem;
             margin-bottom: 1.5rem;
             color: var(--winter-blue);
             text-align: center;
             font-weight: 400;
-            animation: fadeInUp 1s ease 0.2s both;
         }
 
         /* Секция с 3D моделью */
         .model-section {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .project-title {
-            font-family: 'HJKFont', sans-serif;
-            font-size: 3.5rem; /* Увеличил размер шрифта */
-            margin-top: 3rem; /* Увеличил отступ сверху */
-            margin-bottom: 2.5rem; /* Увеличил отступ снизу */
+            font-family: 'HJKFont', Arial, sans-serif;
+            font-size: 2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
             color: var(--winter-blue);
-            letter-spacing: 5px; /* Увеличил межбуквенный интервал */
-            text-shadow: 0 0 15px rgba(144, 205, 244, 0.5); /* Усилил тень */
-            animation: float 5s ease-in-out infinite;
-            line-height: 1.2; /* Улучшил межстрочный интервал */
-            padding: 0 1rem; /* Добавил отступы по бокам */
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(144, 205, 244, 0.3);
+            line-height: 1.2;
+            padding: 0 0.5rem;
         }
 
         .model-container {
             width: 100%;
-            height: 500px; /* Увеличил высоту контейнера */
+            height: 300px;
             border-radius: 8px;
             overflow: hidden;
             background: transparent;
             position: relative;
-            animation: fadeInUp 1s ease 0.4s both;
         }
 
         /* Секция трансляции */
@@ -306,7 +212,6 @@
             padding-bottom: 56.25%; /* 16:9 соотношение сторон */
             border-radius: 8px;
             overflow: hidden;
-            animation: fadeInUp 1s ease 0.6s both;
         }
 
         .stream-container iframe {
@@ -324,51 +229,42 @@
             font-size: 0.9rem;
             opacity: 0.8;
             color: var(--winter-light);
-            animation: fadeIn 1s ease 0.8s both;
         }
 
         /* Секция "О нас" */
         .about-content {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .creator-info {
             display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
+            flex-direction: column;
+            gap: 1.5rem;
             align-items: center;
         }
 
         .creator-photo {
-            flex: 1;
-            min-width: 250px;
+            width: 100%;
+            max-width: 300px;
             border-radius: 10px;
             overflow: hidden;
-            animation: fadeInUp 1s ease 1s both;
         }
 
         .creator-photo img {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .creator-photo:hover img {
-            transform: scale(1.05);
         }
 
         .creator-text {
-            flex: 2;
-            min-width: 300px;
-            animation: fadeInUp 1s ease 1.2s both;
+            width: 100%;
         }
 
         .creator-text h3 {
-            font-family: 'MainFont', sans-serif;
-            font-size: 1.5rem;
+            font-family: 'MainFont', Arial, sans-serif;
+            font-size: 1.3rem;
             margin-bottom: 1rem;
             color: var(--winter-blue);
             font-weight: 400;
@@ -377,28 +273,13 @@
         .creator-text p {
             color: var(--winter-light);
             margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateY(10px);
-            animation: fadeInUp 0.5s ease forwards;
-        }
-
-        .creator-text p:nth-child(2) {
-            animation-delay: 1.4s;
-        }
-
-        .creator-text p:nth-child(3) {
-            animation-delay: 1.6s;
-        }
-
-        .creator-text p:nth-child(4) {
-            animation-delay: 1.8s;
         }
 
         /* Секция "Чем кормим" */
         .feeding-content {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .current-food {
@@ -406,7 +287,6 @@
             border-radius: 10px;
             padding: 1.5rem;
             border-left: 4px solid var(--winter-blue);
-            animation: fadeInUp 1s ease 1s both;
         }
 
         .future-food {
@@ -414,15 +294,13 @@
             border-radius: 10px;
             padding: 1.5rem;
             border-left: 4px solid #63b3ed;
-            animation: fadeInUp 1s ease 1.2s both;
         }
 
         .food-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
             margin-top: 1rem;
-            animation: fadeInUp 1s ease 1.4s both;
         }
 
         .food-item {
@@ -430,37 +308,33 @@
             padding: 1rem;
             border-radius: 8px;
             text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .food-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
         }
 
         .food-item h4 {
             color: var(--winter-blue);
             margin-bottom: 0.5rem;
-            font-family: 'MainFont', sans-serif;
+            font-family: 'MainFont', Arial, sans-serif;
+            font-size: 1rem;
         }
 
         .food-item p {
-            font-family: 'TextFont', sans-serif;
+            font-family: 'TextFont', Arial, sans-serif;
+            font-size: 0.9rem;
         }
 
         /* Секция "Связь" */
         .contact-container {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
         }
 
         .contact-btn {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1rem 2rem;
+            padding: 1rem;
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
@@ -468,37 +342,16 @@
             color: var(--text-color);
             text-decoration: none;
             font-weight: 400;
-            transition: all 0.3s;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease forwards;
-            font-family: 'TextFont', sans-serif;
-        }
-
-        .contact-btn:nth-child(1) {
-            animation-delay: 1s;
-        }
-
-        .contact-btn:nth-child(2) {
-            animation-delay: 1.2s;
-        }
-
-        .contact-btn:hover {
-            transform: translateY(-5px);
-            background: rgba(144, 205, 244, 0.1);
-            border-color: var(--winter-blue);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 300px;
+            justify-content: center;
+            font-family: 'TextFont', Arial, sans-serif;
         }
 
         .contact-btn img {
             width: 40px;
             height: 40px;
             border-radius: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .contact-btn:hover img {
-            transform: rotate(5deg) scale(1.1);
         }
 
         /* Футер */
@@ -512,80 +365,100 @@
             font-size: 0.9rem;
             opacity: 0.8;
             color: var(--winter-light);
-            animation: fadeIn 1s ease 1.4s both;
-            font-family: 'TextFont', sans-serif;
+            font-family: 'TextFont', Arial, sans-serif;
         }
 
-        /* Адаптивность */
+        /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
+            .nav-toggle {
+                display: flex;
             }
-
+            
             nav ul {
-                gap: 1rem;
-            }
-
-            .creator-info {
-                flex-direction: column;
-            }
-
-            .contact-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .contact-btn {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
                 width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-            
-            section {
-                padding: 1.5rem;
-            }
-            
-            main {
+                background: var(--glass-bg);
+                backdrop-filter: blur(12px);
+                flex-direction: column;
                 padding: 1rem;
+                border-bottom: 1px solid var(--glass-border);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav a {
+                display: block;
+                padding: 0.75rem;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            nav a:last-child {
+                border-bottom: none;
             }
             
             .project-title {
-                font-size: 2.5rem; /* Уменьшил для мобильных, но все равно больше чем было */
-                letter-spacing: 3px;
-                margin-top: 2rem;
-                margin-bottom: 2rem;
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
             }
             
             .model-container {
-                height: 350px;
+                height: 250px;
             }
             
             .food-list {
                 grid-template-columns: 1fr;
             }
+            
+            section {
+                padding: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
         }
 
         @media (max-width: 480px) {
             .project-title {
-                font-size: 2rem; /* Еще меньше для очень маленьких экранов */
-                letter-spacing: 2px;
+                font-size: 1.3rem;
+            }
+            
+            .model-container {
+                height: 200px;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+            
+            .creator-text h3 {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Снежинки -->
-    <div class="snowflakes" id="snowflakes"></div>
-
     <header>
         <div class="header-container">
             <div class="logo">
                 <img src="pixvoron.jpg" alt="Пиксельная ворона">
                 <h1>Таверна Вороны</h1>
             </div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav>
-                <ul>
+                <ul id="navMenu">
                     <li><a href="#project">Главная</a></li>
                     <li><a href="#stream">Трансляция</a></li>
                     <li><a href="#about">О нас</a></li>
@@ -692,70 +565,21 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
     <script>
-        // Создание снежинок
-        function createSnowflakes() {
-            const snowflakesContainer = document.getElementById('snowflakes');
-            const snowflakeCount = 50;
-            
-            for (let i = 0; i < snowflakeCount; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.innerHTML = '❄';
-                
-                // Случайные параметры для снежинок
-                const size = Math.random() * 1.5 + 0.5;
-                const left = Math.random() * 100;
-                const animationDuration = Math.random() * 10 + 5;
-                const animationDelay = Math.random() * 5;
-                
-                snowflake.style.left = `${left}vw`;
-                snowflake.style.fontSize = `${size}em`;
-                snowflake.style.animationDuration = `${animationDuration}s`;
-                snowflake.style.animationDelay = `${animationDelay}s`;
-                
-                snowflakesContainer.appendChild(snowflake);
-            }
-        }
-
-        // Анимация появления элементов при скролле
-        function observeSections() {
-            const sections = document.querySelectorAll('section');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
+        // Мобильное меню
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике на ссылку
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
             });
-            
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        }
-
-        // Плавная прокрутка к якорям
-        function initSmoothScroll() {
-            const navLinks = document.querySelectorAll('nav a');
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    const targetId = link.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    if (targetSection) {
-                        window.scrollTo({
-                            top: targetSection.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
+        });
 
         // YouTube Player API
         let player;
@@ -793,7 +617,7 @@
                 document.getElementById('model-container').clientWidth / 
                 document.getElementById('model-container').clientHeight, 
                 0.1, 1000);
-            camera.position.z = 4; // Приблизили камеру для большего размера модели
+            camera.position.z = 4;
             
             // Создание рендерера
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -801,25 +625,22 @@
                 document.getElementById('model-container').clientWidth,
                 document.getElementById('model-container').clientHeight
             );
-            renderer.setClearColor(0x000000, 0); // Прозрачный фон
-            renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.setClearColor(0x000000, 0);
             document.getElementById('model-container').appendChild(renderer.domElement);
             
-            // Улучшенное освещение
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Увеличили интенсивность
+            // Освещение
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
             scene.add(ambientLight);
             
-            const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.0); // Увеличили интенсивность
+            const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.0);
             directionalLight1.position.set(2, 3, 4);
-            directionalLight1.castShadow = true;
             scene.add(directionalLight1);
             
-            const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5); // Добавили второй источник
+            const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
             directionalLight2.position.set(-2, -1, 2);
             scene.add(directionalLight2);
             
-            const pointLight = new THREE.PointLight(0x90cdf4, 0.7, 10); // Добавили точечный свет
+            const pointLight = new THREE.PointLight(0x90cdf4, 0.7, 10);
             pointLight.position.set(0, 2, 3);
             scene.add(pointLight);
             
@@ -834,10 +655,10 @@
                 const center = box.getCenter(new THREE.Vector3());
                 model.position.sub(center);
                 
-                // Увеличили масштабирование модели
+                // Масштабирование модели
                 const size = box.getSize(new THREE.Vector3());
                 const maxDim = Math.max(size.x, size.y, size.z);
-                const scale = 4 / maxDim; // Увеличили множитель масштаба
+                const scale = 4 / maxDim;
                 model.scale.multiplyScalar(scale);
                 
                 // Добавим материал с большей отражающей способностью
@@ -893,12 +714,7 @@
         }
         
         // Инициализация после загрузки страницы
-        window.addEventListener('DOMContentLoaded', () => {
-            createSnowflakes();
-            observeSections();
-            initSmoothScroll();
-            init3D();
-        });
+        window.addEventListener('DOMContentLoaded', init3D);
     </script>
 </body>
 </html>
