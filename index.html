@@ -277,13 +277,15 @@
 
         .project-title {
             font-family: 'HJKFont', sans-serif;
-            font-size: 2.2rem;
-            margin-top: 2rem;
-            margin-bottom: 1.5rem;
+            font-size: 3.5rem; /* Увеличил размер шрифта */
+            margin-top: 3rem; /* Увеличил отступ сверху */
+            margin-bottom: 2.5rem; /* Увеличил отступ снизу */
             color: var(--winter-blue);
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px rgba(144, 205, 244, 0.3);
+            letter-spacing: 5px; /* Увеличил межбуквенный интервал */
+            text-shadow: 0 0 15px rgba(144, 205, 244, 0.5); /* Усилил тень */
             animation: float 5s ease-in-out infinite;
+            line-height: 1.2; /* Улучшил межстрочный интервал */
+            padding: 0 1rem; /* Добавил отступы по бокам */
         }
 
         .model-container {
@@ -549,7 +551,10 @@
             }
             
             .project-title {
-                font-size: 1.8rem;
+                font-size: 2.5rem; /* Уменьшил для мобильных, но все равно больше чем было */
+                letter-spacing: 3px;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
             }
             
             .model-container {
@@ -558,6 +563,13 @@
             
             .food-list {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-title {
+                font-size: 2rem; /* Еще меньше для очень маленьких экранов */
+                letter-spacing: 2px;
             }
         }
     </style>
